@@ -8,12 +8,17 @@ const mongo = require("mongodb");
 const validURL = require("valid-url");
 const shortID = require("shortid");
 require("dotenv").config();
-
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 mongoose.set("strictQuery", false);
+mongoose.connect(
+  process.env.MONGO_URI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log("database connection established");
+  }
+);
 
 const urlSchema = new mongoose.Schema({
   originalURL: String,
